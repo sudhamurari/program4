@@ -47,7 +47,7 @@ class Student {
     }
 }
 
-public class Program4 {
+public class program4 {
     public static void main(String[] args) {
         List<Student> students = new ArrayList<>();
 
