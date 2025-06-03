@@ -1,80 +1,40 @@
-import java.util.ArrayList;
-import java.util.List;
+class Course:
+    def __init__(self, course_name, marks):
+        self.course_name = course_name
+        self.marks = marks
 
-class Course {
-    String courseName;
-    int marks;
+    def __str__(self):
+        return f"Course: {self.course_name}, Marks: {self.marks}"
 
-    Course(String courseName, int marks) {
-        this.courseName = courseName;
-        this.marks = marks;
-    }
-}
+class Student:
+    def __init__(self, name, program, semester):
+        self.name = name
+        self.program = program
+        self.semester = semester
+        self.courses = []
 
-class Student {
-    String name;
-    String program;
-    int semester;
-    List<Course> courses;
+    def add_course(self, course):
+        self.courses.append(course)
 
-    Student(String name, String program, int semester) {
-        this.name = name;
-        this.program = program;
-        this.semester = semester;
-        this.courses = new ArrayList<>();
-    }
+    def get_student_details(self):
+        return f"Student: {self.name}, Program: {self.program}, Semester: {self.semester}"
 
-    void registerCourse(String courseName, int marks) {
-        courses.add(new Course(courseName, marks));
-    }
+    def get_courses(self):
+        return [course.course_name for course in self.courses]
 
-    void displayStudentDetails() {
-        System.out.println("Student Name: " + name);
-        System.out.println("Program: " + program);
-        System.out.println("Semester: " + semester);
-        for (Course course : courses) {
-            System.out.println("Course Registered: " + course.courseName);
-        }
-        System.out.println();
-    }
+    def get_courses_with_marks_below_40(self):
+        return [course for course in self.courses if course.marks < 40]
 
-    void displayLowMarks() {
-        for (Course course : courses) {
-            if (course.marks < 40) {
-                System.out.println("Student: " + name + " | Course: " + course.courseName + " | Marks: " + course.marks);
-            }
-        }
-    }
-}
+# Example Usage
+course1 = Course("Math", 35)
+course2 = Course("Science", 45)
+course3 = Course("History", 30)
 
-public class program4 {
-    public static void main(String[] args) {
-        List<Student> students = new ArrayList<>();
+student = Student("John Doe", "Engineering", "Semester 1")
+student.add_course(course1)
+student.add_course(course2)
+student.add_course(course3)
 
-        Student s1 = new Student("Anjali", "B.Tech CSE", 4);
-        s1.registerCourse("Data Structures", 45);
-        s1.registerCourse("Operating Systems", 35);
-
-        Student s2 = new Student("Rahul", "B.Sc Physics", 2);
-        s2.registerCourse("Mechanics", 39);
-        s2.registerCourse("Electromagnetism", 42);
-
-        Student s3 = new Student("Sneha", "B.Com", 3);
-        s3.registerCourse("Accountancy", 75);
-        s3.registerCourse("Business Law", 28);
-
-        students.add(s1);
-        students.add(s2);
-        students.add(s3);
-
-        System.out.println("---- Student Details ----");
-        for (Student s : students) {
-            s.displayStudentDetails();
-        }
-
-        System.out.println("---- Students with Marks Less Than 40 ----");
-        for (Student s : students) {
-            s.displayLowMarks();
-        }
-    }
-}
+print(student.get_student_details())
+print("Courses registered:", student.get_courses())
+print("Courses with marks below 40:", [str(course) for course in student.get_courses_with_marks_below_40()])
