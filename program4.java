@@ -1,40 +1,60 @@
-class Course:
-    def __init__(self, course_name, marks):
-        self.course_name = course_name
-        self.marks = marks
+import java.util.*;
 
-    def __str__(self):
-        return f"Course: {self.course_name}, Marks: {self.marks}"
+class Course {
+    String courseName;
+    int marks;
 
-class Student:
-    def __init__(self, name, program, semester):
-        self.name = name
-        self.program = program
-        self.semester = semester
-        self.courses = []
+    Course(String courseName, int marks) {
+        this.courseName = courseName;
+        this.marks = marks;
+    }
+}
 
-    def add_course(self, course):
-        self.courses.append(course)
+class Student {
+    String name;
+    String program;
+    int semester;
+    List<Course> courses;
 
-    def get_student_details(self):
-        return f"Student: {self.name}, Program: {self.program}, Semester: {self.semester}"
+    Student(String name, String program, int semester, List<Course> courses) {
+        this.name = name;
+        this.program = program;
+        this.semester = semester;
+        this.courses = courses;
+    }
 
-    def get_courses(self):
-        return [course.course_name for course in self.courses]
+    void displayDetails() {
+        System.out.println("Student Name: " + name);
+        System.out.println("Program: " + program);
+        System.out.println("Semester: " + semester);
+        System.out.println("Courses Registered:");
+        for (Course course : courses) {
+            System.out.println(" - " + course.courseName);
+        }
+    }
 
-    def get_courses_with_marks_below_40(self):
-        return [course for course in self.courses if course.marks < 40]
+    void displayLowScores() {
+        for (Course course : courses) {
+            if (course.marks < 40) {
+                System.out.println("Low Score - " + course.courseName + ": " + course.marks + " marks");
+            }
+        }
+    }
+}
 
-# Example Usage
-course1 = Course("Math", 35)
-course2 = Course("Science", 45)
-course3 = Course("History", 30)
+public class program4{
+    public static void main(String[] args) {
+        List<Course> courseList = new ArrayList<>();
+        courseList.add(new Course("Mathematics", 35));
+        courseList.add(new Course("Physics", 75));
+        courseList.add(new Course("Chemistry", 30));
 
-student = Student("John Doe", "Engineering", "Semester 1")
-student.add_course(course1)
-student.add_course(course2)
-student.add_course(course3)
+        Student student = new Student("Alice", "BSc", 3, courseList);
 
-print(student.get_student_details())
-print("Courses registered:", student.get_courses())
-print("Courses with marks below 40:", [str(course) for course in student.get_courses_with_marks_below_40()])
+        System.out.println("=== Student Details ===");
+        student.displayDetails();
+
+        System.out.println("\n=== Courses with Marks < 40 ===");
+        student.displayLowScores();
+    }
+}
